@@ -1,0 +1,16 @@
+<package>
+  <description brief="hbrs_object_tracking">
+
+     hbrs_object_tracking
+
+  </description>
+  <author>Matthew Roscoe</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/hbrs_object_tracking</url>
+  
+  <depend package="roscpp"/>
+  <depend package="sensor_msgs"/>
+  <depend package="std_srvs"/>
+  <depend package="pcl"/>
+</package>

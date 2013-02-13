@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- This launch file will launch the pipeline that is used for safe_object_transportation -->
+
+	 <!-- bring up RVIZ for visualization -->
+    <node pkg="rviz" type="rviz" output="screen" name="rviz" args="-d $(find raw_safe_object_transportation)/cfg/raw_safe_object_transportation.vcg" />
+
+	<!-- Start the OpenNI Node that gets information from the Kinect -->
+	<include file="$(find pmd_camboard_nano)/launch/pmd_camboard_nano.launch" />
+
+	<!-- x y z roll pitch yaw -->
+	<node pkg="tf" type="static_transform_publisher" name="raw_safe_object_transportation_tf" args=" 0.0 0.0 0.0 0.4 0 0.5 0.0 /world /camera_link 100" />
+
+	<!-- remap the input from the Kinect to the input desired by the safe_object_transportation node -->
+	<remap from="safe_object_transportation_input" to="camera/points_unrectified"/>
+
+	<!-- Start the safe object transportation node -->
+    <node pkg="raw_safe_object_transportation" type="safe_object_transportation" name="raw_safe_object_transportation" output="screen" launch-prefix="gdb -ex run --args">
+        <param name="my_param" type="double" value="1.5" />
+    </node>
+</launch>
